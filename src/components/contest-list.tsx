@@ -3,14 +3,15 @@ import ContestPreview from "./contest-preview"
 import { useEffect, useState } from "react"
 
 const ContestList = ({ initialContests }) => {
+    
     const [contests, setContests] = useState(initialContests)
 
-    useEffect(() => { // used for side effects to fetch data with axios
-        fetchContests()
-        .then((data) => {
-            setContests(data.contests)
-        })
-    }, [])
+    // useEffect(() => { // used for side effects to fetch data with axios
+    //     fetchContests()
+    //     .then((contests) => {
+    //         setContests(contests)
+    //     })
+    // }, [])
 
     return (
         <div className="contest-list">
