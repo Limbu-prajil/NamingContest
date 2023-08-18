@@ -4,7 +4,6 @@ import App from "../components/app"
 
 const serverRender = async () => {
     const contests = await fetchContests()
-    console.log(contests);
     const initialMarkup = ReactDOMServer.renderToString(<App initialData={{ contests }} />)
     return { initialMarkup, initialData: {contests} }
 }

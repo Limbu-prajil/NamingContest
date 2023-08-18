@@ -1,8 +1,18 @@
 import * as React from "react"
 
-const ContestPreview: React.FC<{ contest: object }> = ({ contest }) => {
+const ContestPreview: React.FC<{ contest: object, onClick: Function }> = ({ 
+        contest, onClick
+    }) => {
+
+    const handleClick = (event) => {
+        event.preventDefault()
+        // Navigate to a new view(we use state element in App component
+        // to make React re-render app and render a new view)
+        onClick(contest.id) // This id goes to App as contestId
+    }
+
     return (
-            <div className="contest-preview">
+            <div className="contest-preview link" onClick={handleClick}>
                 <div className="category">{contest.categoryName}</div>
                 <div className="contest">{contest.contestName}</div>
             </div>
@@ -10,3 +20,4 @@ const ContestPreview: React.FC<{ contest: object }> = ({ contest }) => {
 }
 
 export default ContestPreview
+ 

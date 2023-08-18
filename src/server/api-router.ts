@@ -8,7 +8,7 @@ router.use(cors())
 router.get("/contests", async (req, res) => {
     const client = await connectClient()
     
-    const contests = client
+    const contests = await client
         .collection("contests")
         .find()
         .project({
@@ -19,14 +19,12 @@ router.get("/contests", async (req, res) => {
         })
         .toArray();
     
-    console.info(contests);
-
     res.send({ contests })
 })
 
 router.get("/contest/:contestId", async (req, res) => {
     const client = await connectClient()
-    const contest = client
+    const contest = await client
         .collection("contests")
         .findOne({ id: req.params.contestId })
 
