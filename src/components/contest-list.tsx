@@ -23,4 +23,3 @@ const ContestList = ({ initialContests }) => {
 }
 
 export default ContestList
-     

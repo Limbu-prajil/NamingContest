@@ -13,7 +13,7 @@ server.get("/", async (req, res) => {
     const { initialMarkup, initialData } = await serverRender()
     res.render("index", {
         initialMarkup,
-        initialData
+        initialData,
     })
 })
 
