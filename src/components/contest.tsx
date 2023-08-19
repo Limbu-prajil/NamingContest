@@ -2,15 +2,17 @@ import { useState, useEffect } from "react"
 import { fetchContest } from "../api-client"
 import Header from "./header"
 
-const Contest = ({ id }) => {
-    const [contest, setContest] = useState({})
+const Contest = ({ initialContest }) => {
+    const [contest, setContest] = useState(initialContest)
 
-    useEffect(() => { // used for side effects to fetch data with axios
-        fetchContest(id)
-        .then((contest) => {
-            setContest(contest)
-        })
-    }, [id])
+    useEffect(() => {
+        if (!contest.names) {
+            fetchContest(contest.id)
+                .then((contest) => {
+                    setContest(contest)
+                })
+        }
+    }, [contest.id, contest.names])
 
     return (
         <>

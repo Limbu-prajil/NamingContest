@@ -1,17 +1,26 @@
 import * as React from "react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Header from "./header"
 import ContestList from "./contest-list"
 import Contest from "./contest"
 
 const App = ({initialData}) => {
 
-    const [page, setPage] = useState("contestList")
-    const [currentContestId, setCurrentContestId] = useState()
+    const [page, setPage] = useState(initialData.currentContest ? "contest" : "contestList")
+    const [currentContest, setCurrentContest] = useState(initialData.currentContest)
+
+    useEffect(() => {
+        window.onpopstate = (event) => {
+            const newPage = event.state?.contestId ? "contest" : "contestList"
+            setPage(newPage)
+            setCurrentContest({ id: event.state?.contestId })
+        }
+    }, [])
 
     const navigateToContest = (contestId) => {
+        window.history.pushState({contestId}, "", `/contest/${contestId}`)
         setPage("contest")
-        setCurrentContestId(contestId)
+        setCurrentContest({ id: contestId })
     }
 
     const pageContent = () => {
@@ -19,13 +28,13 @@ const App = ({initialData}) => {
             case "contestList":
                 return (
                     <ContestList 
-                        initialContests={initialData.contests} 
+                        initialContests={initialData.contests}
                         onContestClick={navigateToContest}
                     />
                 )
             case "contest":
                 return (
-                    <Contest id={currentContestId} />
+                    <Contest initialContest={currentContest} />
                 )
         }
     }
