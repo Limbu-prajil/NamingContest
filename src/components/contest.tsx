@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react"
-import { fetchContest } from "../api-client"
+import { addNewNameToContest, fetchContest } from "../api-client"
 import Header from "./header"
+import ProposedNames from "./proposed-names"
+import NewName from "./new-name"
 
-const Contest = ({ initialContest }) => {
+const Contest = ({ initialContest, onContestListClick }) => {
     const [contest, setContest] = useState(initialContest)
 
     useEffect(() => {
@@ -14,6 +16,18 @@ const Contest = ({ initialContest }) => {
         }
     }, [contest.id, contest.names])
 
+    const handleContestListClick = (event) => {
+        event.preventDefault()
+        onContestListClick()
+    }
+
+    const handleNewNameSubmit = async (event) => {
+        event.preventDefault()
+        const newNameInput = event.target.newName
+        const updatedContest =  await addNewNameToContest( { contestId: contest.id, newNameValue: newNameInput.value } )
+        setContest(updatedContest)
+    }
+
     return (
         <>
             <Header message={contest.categoryName} />
@@ -21,6 +35,11 @@ const Contest = ({ initialContest }) => {
                 <div className="title">{contest.contestName}</div>
                 <div className="description">{contest.description}</div>
             </div>
+
+            <ProposedNames contest={contest} />
+            <NewName handleNewNameSubmit={handleNewNameSubmit} />
+
+            <a href="/" className="link" onClick={handleContestListClick}>Contest List</a>
         </>
     )
 }

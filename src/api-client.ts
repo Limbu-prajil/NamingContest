@@ -10,3 +10,11 @@ export const fetchContest = async (contestId) => {
   const resp = await axios.get(`${API_SERVER_URL}/contest/${contestId}`);
   return resp.data.contest;
 };
+
+export const addNewNameToContest = async ( { contestId, newNameValue } ) => {
+  const resp = await axios.post(
+    `${API_SERVER_URL}/contest/${contestId}`,
+    {newNameValue});
+
+  return resp.data.updatedContest;
+};

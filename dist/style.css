@@ -54,24 +54,37 @@ body {
   font-weight: bold;
   background-color: #ddd;
 }
+ 
+.title {
+  border: thin solid #ccc;
+  padding: 0.5rem;
+  font-weight: bold;
+  background-color: #ddd;
+}
 
 .title {
   text-align: center;
 }
 
-.contest .description,
-.contest .body {
+.contest .description {
   border: thin solid #ccc;
   border-top: unset;
   padding: 1rem;
   margin-bottom: 2rem;
 }
 
-.contest .body .list .item {
+.body {
+  border: thin solid #ccc;
+  border-top: unset;
+  padding: 1rem;
+  margin-bottom: 2rem;
+}
+
+.body .list .item {
   margin: 0.5rem;
 }
 
-.contest .body form {
+.body form {
   margin: 0.25rem;
 }
 

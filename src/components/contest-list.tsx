@@ -5,14 +5,16 @@ import Header from "./header"
 
 const ContestList = ({ initialContests, onContestClick }) => {
     
-    const [contests, setContests] = useState(initialContests)
+    const [contests, setContests] = useState(initialContests ?? [])
 
-    // useEffect(() => { // used for side effects to fetch data with axios
-    //     fetchContests()
-    //     .then((contests) => {
-    //         setContests(contests)
-    //     })
-    // }, [])
+    useEffect(() => { // used for side effects to fetch data with axios
+        if (!initialContests) {
+            fetchContests()
+                .then((contests) => {
+                setContests(contests)
+                })
+        }
+    }, [initialContests])
 
     return (
         <>
