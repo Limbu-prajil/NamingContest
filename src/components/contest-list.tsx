@@ -1,17 +1,22 @@
-import { fetchContests } from "../api-client"
+import { fetchContests } from "../client-api"
 import ContestPreview from "./contest-preview"
 import { useEffect, useState } from "react"
 import Header from "./header"
 
-const ContestList = ({ initialContests, onContestClick }) => {
+const ContestList = ({ initialContests, afterContest, onContestClick }) => {
+    
+    // check added contest is present and if yes push
     
     const [contests, setContests] = useState(initialContests ?? [])
 
-    useEffect(() => { // used for side effects to fetch data with axios
+    useEffect(() => {
         if (!initialContests) {
             fetchContests()
                 .then((contests) => {
-                setContests(contests)
+                    if (!contests.includes(afterContest)) {
+                        setContests(contests.push(afterContest))
+                    }
+                    //setContests(contests)
                 })
         }
     }, [initialContests])

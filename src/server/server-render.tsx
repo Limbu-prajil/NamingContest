@@ -1,5 +1,5 @@
 import ReactDOMServer from "react-dom/server";
-import { fetchContest, fetchContests } from "../api-client";
+import { fetchContest, fetchContests } from "../client-api";
 import App from "../components/app";
 
 const serverRender = async (req) => {

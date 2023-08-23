@@ -1,13 +1,13 @@
 import express from "express"
 import serverConfig from "./server-config"
-import apiRouter from "./api-router"
-import serverRender from "./render"
+import routerApi from "./server-api"
+import serverRender from "./server-render"
 
 const server = express()
 
 server.use(express.static("dist"))
 server.set("view engine", "ejs")
-server.use("/api", apiRouter)
+server.use("/api", routerApi)
 
 server.get(["/", "/contest/:contestId"], async (req, res) => {
 

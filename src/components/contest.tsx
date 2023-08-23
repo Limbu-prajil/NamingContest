@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react"
-import { addNewNameToContest, fetchContest } from "../api-client"
+import { addNewNameToContest, fetchContest } from "../client-api"
 import Header from "./header"
 import ProposedNames from "./proposed-names"
 import NewName from "./new-name"
 
 const Contest = ({ initialContest, onContestListClick }) => {
+
     const [contest, setContest] = useState(initialContest)
 
     useEffect(() => {
@@ -18,7 +19,7 @@ const Contest = ({ initialContest, onContestListClick }) => {
 
     const handleContestListClick = (event) => {
         event.preventDefault()
-        onContestListClick()
+        onContestListClick(contest)
     }
 
     const handleNewNameSubmit = async (event) => {

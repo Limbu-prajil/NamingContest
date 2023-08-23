@@ -8,7 +8,6 @@ router.use(express.json())
 
 router.get("/contests", async (req, res) => {
     const client = await connectClient()
-    
     const contests = await client
         .collection("contests")
         .find()
@@ -33,10 +32,9 @@ router.get("/contest/:contestId", async (req, res) => {
 })
 
 router.post("/contest/:contestId", async (req, res) => {
-    const client = await connectClient()
-
     const { newNameValue } = req.body
-
+    
+    const client = await connectClient()
     const doc = await client
         .collection("contests")
         .findOneAndUpdate(
@@ -54,6 +52,27 @@ router.post("/contest/:contestId", async (req, res) => {
         )
 
     res.send({ updatedContest: doc.value })
+})
+
+router.post("/contests", async (req, res) => {
+    const { categoryName, contestName, description } = req.body
+
+    const client = await connectClient()
+    const doc = await client
+        .collection("contests")
+        .insertOne({
+            id: contestName.toLowerCase().replace(/\s/g, "-"),
+            categoryName,
+            contestName,
+            description,
+            names: [],
+        })
+
+    const newContest = await client
+        .collection("contests")
+        .findOne({_id : doc.insertedId})
+
+    res.send({ newContest })
 })
 
 export default router

@@ -3,9 +3,10 @@ import { useState, useEffect } from "react"
 import Header from "./header"
 import ContestList from "./contest-list"
 import Contest from "./contest"
+import AddNewContest from "./add-new-contest"
 
 const App = ({initialData}) => {
-
+    
     const [page, setPage] = useState(initialData.currentContest ? "contest" : "contestList")
     const [currentContest, setCurrentContest] = useState(initialData.currentContest)
 
@@ -23,20 +24,30 @@ const App = ({initialData}) => {
         setCurrentContest({ id: contestId })
     }
 
-    const navigateToContests = () => {
+    const navigateToContests = (newContest) => {
         window.history.pushState({}, "", "/")
         setPage("contestList")
-        setCurrentContest(undefined)
+        setCurrentContest(newContest) // receives new contest
+    }
+
+    const onNewContest = (newContest) => {        
+        window.history.pushState({ contestId: newContest.id }, "" , `/contest/${newContest.id}`)
+        setPage("contest")
+        setCurrentContest(newContest)
     }
 
     const pageContent = () => {
         switch (page) {
             case "contestList":
                 return (
-                    <ContestList 
-                        initialContests={initialData.contests}
-                        onContestClick={navigateToContest}
-                    />
+                    <>
+                        <ContestList 
+                            initialContests={initialData.contests}
+                            afterContest={currentContest} // pass added contest to ContesList
+                            onContestClick={navigateToContest}
+                        />
+                        <AddNewContest onAddSuccess={onNewContest} />
+                    </>
                 )
             case "contest":
                 return (
@@ -53,3 +64,4 @@ const App = ({initialData}) => {
 }
 
 export default App
+
