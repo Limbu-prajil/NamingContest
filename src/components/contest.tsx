@@ -5,7 +5,7 @@ import ProposedNames from "./proposed-names"
 import NewName from "./new-name"
 
 const Contest = ({ initialContest, onContestListClick }) => {
-
+        
     const [contest, setContest] = useState(initialContest)
 
     useEffect(() => {
@@ -19,7 +19,12 @@ const Contest = ({ initialContest, onContestListClick }) => {
 
     const handleContestListClick = (event) => {
         event.preventDefault()
-        onContestListClick(contest)
+        
+        onContestListClick({
+            id: contest.id,
+            categoryName: contest.categoryName,
+            contestName: contest.contestName,
+        })
     }
 
     const handleNewNameSubmit = async (event) => {

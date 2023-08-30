@@ -27,7 +27,7 @@ router.get("/contest/:contestId", async (req, res) => {
     const contest = await client
         .collection("contests")
         .findOne({ id: req.params.contestId })
-
+        
     res.send({ contest })
 })
 

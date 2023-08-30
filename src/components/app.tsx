@@ -24,10 +24,10 @@ const App = ({initialData}) => {
         setCurrentContest({ id: contestId })
     }
 
-    const navigateToContests = (newContest) => {
+    const navigateToContests = (contest) => {
         window.history.pushState({}, "", "/")
         setPage("contestList")
-        setCurrentContest(newContest) // receives new contest
+        setCurrentContest(contest) // receives new contest
     }
 
     const onNewContest = (newContest) => {        
@@ -64,4 +64,3 @@ const App = ({initialData}) => {
 }
 
 export default App
-
