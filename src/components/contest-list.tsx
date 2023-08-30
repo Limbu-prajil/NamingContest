@@ -48,14 +48,6 @@ const ContestList = ({ initialContests, afterContest, onContestClick }) => {
                     setContests(contests)
                 })
         }
-        // if (initialContests) {
-        //     if (!arrayContainsObject(initialContests, afterContest)) {
-        //         fetchContests()
-        //             .then((contests) => {
-        //                 setContests(contests)
-        //             })
-        //     }
-        // }
     }, [initialContests, afterContest])
 
     return (
